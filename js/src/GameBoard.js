@@ -49,6 +49,17 @@ define(["src/Numfont"], function(Numfont) {
 			y = 4 + y*12;
 
 			ctx.drawImage(this.blocks, id*12, 0, size, size, x, y, size, size);
+		},
+		drawNextBlock: function(ctx, block, x, y) {
+			var id = block.ID,
+				size = 13;	
+			if (block.ID === 1)	{
+				debugger;
+			}
+			x = 107 + x*12;
+			y = 215 + y*12;
+
+			ctx.drawImage(this.blocks, id*12, 0, size, size, x, y, size, size);
 		}
 	});
 

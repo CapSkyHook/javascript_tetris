@@ -10,10 +10,11 @@ define([
 
 	var Tetris = Class.extend({
 
-		init: function(cols, rows) {
+		init: function(cols, rows, prvwsize) {
 
 			this.cols = cols;
 			this.rows = rows;
+			this.prvwsize = prvwsize;
 
 			this.gameBoard = new GameBoard();
 			this.stat = new StatManager();
@@ -27,7 +28,13 @@ define([
 		reset: function() {
 
 			this.frames = 1;
+			this.createBlockControl();
+			this.createNextBlock();
+			this.random.initialize();
+			this.setNextTetramino();
+		},
 
+		createBlockControl: function(){
 			this.blockControl = [];
 			for (var i = 0; i < this.cols; i++) {
 				this.blockControl[i] = [];
@@ -35,13 +42,20 @@ define([
 					this.blockControl[i][j] = new Block(Block.NONE);
 				}
 			}
-
-			this.random.initialize();
-			this.setNextTetramino();
+		},
+		createNextBlock: function(){
+			this.nextBlock = [];
+			for (var i = 0; i < this.prvwsize; i++) {
+				this.nextBlock[i] = [];
+				for (var j = 0; j < this.prvwsize; j++) {
+					this.nextBlock[i][j] = new Block(Block.NONE);
+				}
+			}
 		},
 
 		update: function(inpt) {
 			this.currentTetramino.setTo(this.blockControl, Block.NONE);
+			this.queuedTetramino.setTo(this.nextBlock, Block.NONE);
 
 			if (inpt.pressed("up")) {
 				this.moveRotate();
@@ -68,11 +82,17 @@ define([
 			}
 
 			this.currentTetramino.setTo(this.blockControl);
+			this.queuedTetramino.setTo(this.nextBlock);
 		},
 
 		draw: function(ctx) {
 			this.gameBoard.draw(ctx, this.stat);
+			this.drawNextTetramino(ctx);
+			this.drawQueuedTetramino(ctx);
+			
+		},
 
+		drawNextTetramino: function (ctx) {
 			for (var i = 0; i < this.cols; i++) {
 				for (var j = 0; j < this.rows; j++) {
 					var b = this.blockControl[i][j];
@@ -82,13 +102,22 @@ define([
 				}
 			}
 		},
+		drawQueuedTetramino: function (ctx) {
+			for (var i = 0; i < this.prvwsize; i++) {
+				for (var j = 0; j < this.prvwsize; j++) {
+					var b = this.nextBlock[i][j];
+					if (b.solid) {
+						this.gameBoard.drawNextBlock(ctx, b, i, j);
+					}
+				}
+			}
+		},
 
 		setNextTetramino: function() {
-
-			this.currentTetramino = this.queuedTetrimino || new Tetramino(this.random.nextID());
+			this.currentTetramino = this.queuedTetramino || new Tetramino(this.random.nextID());
 			this.currentTetramino.x = 3;
 			this.currentTetramino.y = 0;
-
+			this.queuedTetramino = new Tetramino(this.random.nextID());
 			this.stat.incTetramino(this.currentTetramino.ID);
 		},
 
