@@ -39,7 +39,12 @@ define(function() {
 				canvas.flip();
 			}
 			this._reqframe = window.requestAnimationFrame(loop);
+		},
+
+		playerLose: function (){
+			$('.lose-menu').css('display', "inline")
 		}
+
 	});
 
 

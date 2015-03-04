@@ -1,3 +1,28 @@
+body {
+	background-image: url('../res/tetris-wall.jpg');
+	background-size: 90%;
+	 background-color: #cccccc;
+}
+
 canvas {
+	margin-top: 10%;
+	margin-left: 10%;
 	border: 1px solid #000;
+}
+
+.lose-menu {
+	display: none;
+	color: white;
+	text-align: center;
+}
+.restart-game {
+
+	color: white;
+	text-align: center;
+}
+.new-game {
+	margin-right: 35%;
+	margin-top: 15%;
+	color: white;
+	text-align: center;
 }

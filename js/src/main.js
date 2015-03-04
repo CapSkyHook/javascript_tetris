@@ -16,7 +16,7 @@ require(["src/Game", "src/Tetris"], function(Game, Tetris) {
 		init: function() {
 			canvas.width = 480;
 			canvas.height = 272;
-			canvas.scale = 1;
+			canvas.scale = 1.5;
 
 			content.load("back", "res/back.png");
 			content.load("blocks", "res/blocks.png");
@@ -27,6 +27,7 @@ require(["src/Game", "src/Tetris"], function(Game, Tetris) {
 			input.bindKey("up", [input.Keys.UP_ARROW, input.Keys.W]);
 			input.bindKey("right", [input.Keys.RIGHT_ARROW, input.Keys.D]);
 			input.bindKey("down", [input.Keys.DOWN_ARROW, input.Keys.S]);
+			input.bindKey("pause", input.Keys.P);
 
 			this.hasLoad = false;
 		},
@@ -51,10 +52,30 @@ require(["src/Game", "src/Tetris"], function(Game, Tetris) {
 
 
 	(function() {
-		var game = new App();
-		game.run();
+			// debugger;
+			// window.game = new App();
+			// window.game.run();
+			// window.onblur = window.game.stop.bind(window.game);
+			// window.onfocus = window.game.run.bind(window.game);
+			// window.onkeydown = window.game.run.bind(window.game);
 
-		window.onblur = game.stop.bind(game);
-		window.onfocus = game.run.bind(game);
+			$( ".new-game" ).click(function() {
+  				window.game = new App();
+  				window.game.run();
+  				window.onblur = window.game.stop.bind(window.game);
+				window.onfocus = window.game.run.bind(window.game);
+				window.onkeydown = window.game.run.bind(window.game);
+				$(".new-game").css("display", "none")
+			});
+			$( ".restart-game" ).click(function() {
+  				window.game = new App();
+  				window.game.run();
+  				window.onblur = window.game.stop.bind(window.game);
+				window.onfocus = window.game.run.bind(window.game);
+				window.onkeydown = window.game.run.bind(window.game);
+				$(".lose-menu").css("display", "none")
+			});
+		
+		
 	})();
 });

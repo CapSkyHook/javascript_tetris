@@ -59,6 +59,10 @@ define([
 				this.hardDrop();
 			}
 
+			if (inpt.pressed("pause")){
+				this.pauseGame();
+			}
+
 			if (this.frames++ % 20 === 0) {
 				this.moveDown();
 			}
@@ -81,7 +85,7 @@ define([
 
 		setNextTetramino: function() {
 
-			this.currentTetramino = new Tetramino(this.random.nextID());
+			this.currentTetramino = this.queuedTetrimino || new Tetramino(this.random.nextID());
 			this.currentTetramino.x = 3;
 			this.currentTetramino.y = 0;
 
@@ -147,6 +151,19 @@ define([
 			}
 		},
 
+		pauseGame: function (){
+			var pause;
+			pause = (pause === true ? false : true)
+			if (pause){
+				window.game.stop();
+				return;
+			}
+			if(!pause){
+				console.log("false")
+			}
+			window.game.run();
+		},
+
 		checkRows: function() {
 			var full, removed = 0;
 
@@ -171,6 +188,7 @@ define([
 				this.stat.addScore(removed);
 				this.stat.checkLvlUp();
 			}
+			this.checkCols();
 		},
 
 		removeRow: function(row) {
@@ -179,6 +197,13 @@ define([
 				for (var j = 0; j < this.cols; j++) {
 					bc[j][i].setType(bc[j][i - 1].ID);
 				}
+			}
+		},
+
+		checkCols: function () {
+			if(this.currentTetramino.y  <= 1){
+				window.game.stop();
+				window.game.playerLose();
 			}
 		}
 	});
