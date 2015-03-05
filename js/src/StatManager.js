@@ -24,7 +24,7 @@ define(function() {
 
 			this._firstlvl = false;
 
-			this.startlvl = startlvl || 0;
+			this.startlvl = startlvl || 1;
 			this.lvl = this.startlvl;
 
 			this.score = 0;
