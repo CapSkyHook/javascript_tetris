@@ -148,13 +148,12 @@ define([
 				ct.rotation = ct.getRotation(dr);
 			}
 		},
-
 		moveDown: function() {
 			var bc = this.blockControl,
 				ct = this.currentTetramino;
 
 			if (ct.check(bc, 0, 1)) {
-				ct.y += 1;
+				ct.y += (1 + (0.1  * this.stat.lvl));
 			} else {
 				ct.setTo(bc);
 				this.checkRows();

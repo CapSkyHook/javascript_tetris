@@ -52,12 +52,6 @@ require(["src/Game", "src/Tetris"], function(Game, Tetris) {
 
 
 	(function() {
-			// debugger;
-			// window.game = new App();
-			// window.game.run();
-			// window.onblur = window.game.stop.bind(window.game);
-			// window.onfocus = window.game.run.bind(window.game);
-			// window.onkeydown = window.game.run.bind(window.game);
 
 			$( ".new-game" ).click(function() {
   				window.game = new App();
