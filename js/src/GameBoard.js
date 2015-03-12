@@ -25,7 +25,6 @@ define(["src/Numfont"], function(Numfont) {
 			var tet = stat.tetraminos;
 
 			ctx.drawImage(this.back, 0, 0);
-
 			this.font.gray.draw(ctx, stat.lvl, 113, 16, 5);
 			this.font.gray.draw(ctx, stat.lines, 113, 34, 5);
 			this.font.gray.draw(ctx, stat.score, 78, 52, 10);
@@ -54,7 +53,6 @@ define(["src/Numfont"], function(Numfont) {
 			var id = block.ID,
 				size = 13;	
 			if (block.ID === 1)	{
-				debugger;
 			}
 			x = 107 + x*12;
 			y = 215 + y*12;

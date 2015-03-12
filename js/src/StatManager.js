@@ -5,7 +5,7 @@ define(function() {
 	var StatManager = Class.extend({
 
 		init: function() {
-			this.reset(0);
+			this.reset(1);
 		},
 
 		reset: function(startlvl) {
@@ -42,15 +42,9 @@ define(function() {
 		},
 
 		checkLvlUp: function() {
-			if (this._firstlvl) {
-				if (this.lines >= (this.lvl + 1) * 10) {
-					this.lvl++;
-				}
-			} else {
-				if (this.lines >= (this.startlvl + 1) * 10 || this.lines >= 100) {
-					this._firstlvl = true;
-					this.lvl++;
-				}
+
+			if (this.lines >= (this.lvl * 5)){
+				this.lvl++
 			}
 		}
 	});
